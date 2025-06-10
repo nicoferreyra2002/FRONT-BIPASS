@@ -10,15 +10,17 @@ const Register = () => {
         email: "",
         password: "",
         fechaNacimiento: "",
-        genero: ""
+        genero: "",
+        terminos: false
     });
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, value, type, checked } = e.target;
+        const val = type === "checkbox" ? checked : value;
+        setFormData({ ...formData, [name]: val });
     };
 
     const validarEmail = (email) => {
@@ -51,10 +53,14 @@ const Register = () => {
             setSuccess(false);
             return;
         }
-
+        if (!formData.terminos) {
+            setError("Debes aceptar los términos y condiciones.");
+            setSuccess(false);
+            return;
+        }
         setError("");
         setSuccess(true);
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => navigate("/"), 2000);
     };
 
     return (
@@ -100,6 +106,15 @@ const Register = () => {
                                 <option value="mujer">Mujer</option>
                                 <option value="no-decidir">Prefiero no decirlo</option>
                             </Form.Select>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Check
+                                type="checkbox"
+                                name="terminos"
+                                label="Acepto los terminos y condiciones"
+                                checked={formData.terminos}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
 
                         <p className="text-center mt-3 text-muted">

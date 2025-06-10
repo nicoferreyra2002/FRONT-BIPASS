@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Alert, Container, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import "./Login.css";
+import '../../styles/Login.css'
 
 const Login = () => {
     const [email, setEmail] = useState("");
