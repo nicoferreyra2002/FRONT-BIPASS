@@ -1,0 +1,132 @@
+/* Fondo general con gradiente y animación suave */
+.billboard-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #124b77 100%);
+  animation: bgFade 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgFade {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero Carousel */
+.billboard-carousel img {
+  object-fit: cover;
+  height: 400px;
+}
+
+.billboard-carousel .carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.billboard-carousel .carousel-caption h3 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.billboard-carousel .carousel-caption p {
+  font-size: 1rem;
+}
+
+/* Search Bar */
+.billboard-search {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.billboard-search input {
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+/* Cards / Event Grid */
+.event-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.event-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.event-card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card .card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.event-card .card-text {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #555555;
+}
+
+.event-card .card-body div {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.event-card .card-body div svg {
+  margin-right: 0.5rem;
+}
+
+/* Buttons */
+.event-card .btn {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.event-card .btn:hover {
+  transform: translateY(-2px);
+  background-color: #0d3b5f;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-stagger {
+  animation: fadeInStagger 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInStagger {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Alerts */
+.billboard-alert {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+}

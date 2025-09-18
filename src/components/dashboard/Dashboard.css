@@ -1,0 +1,275 @@
+/* ==============================
+   --- ESTILOS NAVBAR ---
+============================== */
+.main-navbar {
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 16px 16px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.nav-links .nav-item-link {
+  color: #fff;
+  font-weight: 500;
+  margin: 0 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-links .nav-item-link:hover {
+  color: #c741dc;
+  transform: translateY(-2px);
+}
+
+.nav-links .nav-item-link.active {
+  color: #fff;
+  font-weight: 700;
+  border-bottom: 2px solid #6366f1;
+}
+
+/* Logo */
+.logo-icon {
+  font-size: 1.4rem;
+  color: #6366f1;
+}
+
+.main-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Botones derecha */
+.nav-btn {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Responsive Navbar */
+@media (max-width: 991px) {
+  .nav-links {
+    flex-direction: column;
+  }
+
+  .nav-links .nav-item-link {
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .nav-btn {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}
+
+/* ==============================
+   --- DASHBOARD ---
+============================== */
+
+/* Contenedor principal */
+.dashboard-container {
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 2rem;
+}
+
+/* -----------------------------
+   VIDEO DE BIENVENIDA
+----------------------------- */
+.dashboard-video {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(60%);
+    transition: transform 0.5s ease;
+}
+
+.video-bg:hover {
+    transform: scale(1.05);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.video-overlay button {
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.video-overlay button:hover {
+    transform: scale(1.05);
+}
+
+/* -----------------------------
+   BUSCADOR & FILTROS
+----------------------------- */
+.search-input .form-control {
+    border-left: 0;
+}
+
+.search-input .input-group-text {
+    border-right: 0;
+    color: #1573bb;
+    font-weight: bold;
+}
+
+.dropdown-toggle {
+    background-color: #ffffff !important;
+    border: 1px solid #ddd !important;
+    color: #333 !important;
+}
+
+.dropdown-menu {
+    min-width: 10rem;
+}
+
+/* -----------------------------
+   ALERTAS
+----------------------------- */
+.alert-modern {
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* -----------------------------
+   TARJETAS DE ENTRADAS
+----------------------------- */
+.entrada-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.entrada-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.entrada-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.entrada-card .badge {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.entrada-card .h4 {
+    color: #333;
+}
+
+/* -----------------------------
+   ANIMACIONES
+----------------------------- */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.6s ease forwards;
+}
+
+.animate-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerFade 0.6s forwards;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes staggerFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* -----------------------------
+   BOTONES
+----------------------------- */
+.btn-primary {
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+/* -----------------------------
+   RESPONSIVE DASHBOARD
+----------------------------- */
+@media (max-width: 991px) {
+    .dashboard-video {
+        height: 300px;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+}

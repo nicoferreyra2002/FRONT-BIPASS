@@ -1,132 +1,191 @@
-import { useState } from "react";
-import { Form, Button, Alert, Container, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import "./Register.css";
+import { useRef, useState } from "react";
+import { Button, Card, Col, Form, FormGroup, Row } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
-const Register = () => {
-    const [formData, setFormData] = useState({
-        nombre: "",
-        apellido: "",
-        email: "",
-        password: "",
-        fechaNacimiento: "",
-        genero: "",
-        terminos: false
+const Register = ({ onRegister }) => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+
+    const [errors, setErrors] = useState({
+        name: false,
+        email: false,
+        password: false,
+        birthdate: false,
     });
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
-    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        const val = type === "checkbox" ? checked : value;
-        setFormData({ ...formData, [name]: val });
+    const nameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const birthdateRef = useRef(null);
+
+    const validatePassword = (pwd) => {
+        // Valida que la contraseña contenga al menos:
+        // - 1 mayúscula
+        // - 8 caracteres
+        // - 1 carácter especial
+        const hasUpperCase = /[A-Z]/.test(pwd);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(pwd);
+        const isLongEnough = pwd.length >= 8;
+        return hasUpperCase && hasSpecialChar && isLongEnough;
     };
 
-    const validarEmail = (email) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const handleChange = (setter, ref) => (event) => {
+        setter(event.target.value);
+        if (event.target.value) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                [event.target.name]: false,
+            }));
+        }
     };
 
-    const validarPassword = (password) => {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/.test(password);
-    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+        let formIsValid = true;
+        const newErrors = {
+            name: !name,
+            email: !email,
+            password: !password,
+            birthdate: !birthdate,
+        };
 
-        const { nombre, apellido, email, password, fechaNacimiento, genero } = formData;
-
-        if (!nombre || !apellido || !email || !password || !fechaNacimiento || !genero) {
-            setError("Todos los campos son obligatorios.");
-            setSuccess(false);
-            return;
+        if (newErrors.name) {
+            alert("Debe ingresar un nombre y apellido.");
+            nameRef.current.focus();
+            formIsValid = false;
+        } else if (newErrors.email) {
+            alert("Debe ingresar un email.");
+            emailRef.current.focus();
+            formIsValid = false;
+        } else if (newErrors.password) {
+            alert("Debe ingresar una contraseña.");
+            passwordRef.current.focus();
+            formIsValid = false;
+        } else if (newErrors.birthdate) {
+            alert("Debe ingresar una fecha de nacimiento.");
+            birthdateRef.current.focus();
+            formIsValid = false;
         }
 
-        if (!validarEmail(email)) {
-            setError("El correo electrónico no es válido.");
-            setSuccess(false);
-            return;
+        if (password && !validatePassword(password)) {
+            alert("La contraseña debe tener al menos 8 caracteres, una mayúscula y un carácter especial.");
+            passwordRef.current.focus();
+            newErrors.password = true;
+            formIsValid = false;
         }
 
-        if (!validarPassword(password)) {
-            setError("La contraseña debe tener al menos una mayúscula, una minúscula y un caracter especial.");
-            setSuccess(false);
-            return;
+        setErrors(newErrors);
+
+        if (formIsValid) {
+            if (onRegister) {
+                onRegister({ name, email, password, birthdate });
+            }
         }
-        if (!formData.terminos) {
-            setError("Debes aceptar los términos y condiciones.");
-            setSuccess(false);
-            return;
-        }
-        setError("");
-        setSuccess(true);
-        setTimeout(() => navigate("/"), 2000);
     };
 
     return (
-        <Container className="register-container fade-in">
-            <Card className="card-custom w-100" style={{ maxWidth: '480px' }}>
-                <Card.Body className="card-body-flex">
-                    <h2 className="text-center mb-4 fw-bold">REGISTRARSE</h2>
+        <Row className="g-0 vh-100">
+            <Col md={8} className="d-flex align-items-center justify-content-center bg-dark">
+                <video
+                    src="/gifs/video.mp4"
+                    alt="Video de fondo para login"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover"
+                    }}
+                    autoPlay
+                    loop
+                    muted
+                />
+            </Col>
+            <Col md={4} className="d-flex align-items-center justify-content-center" style={{ background: "linear-gradient(150deg, #1097cdff 0%, #170635ff 100%)" }}>
+                <Card className="p-5 shadow" style={{ minWidth: 400, maxWidth: 400 }}>
+                    <Card.Body>
+                        <Row className="mb-4 text-center">
+                            <h5 className="display-10 fw-bold">¡REGÍSTRATE EN BIPASS!</h5>
+                        </Row>
+                        <Form onSubmit={handleSubmit}>
+                            {/* Campo de Nombre y Apellido */}
+                            <FormGroup className="mb-4">
+                                <Form.Control
+                                    className={errors.name ? "border border-danger" : ""}
+                                    type="text"
+                                    name="name"
+                                    placeholder="Nombre y apellido"
+                                    onChange={handleChange(setName, nameRef)}
+                                    value={name}
+                                    ref={nameRef}
+                                />
+                                {errors.name && <p className="text-danger mt-2">Debe completar su nombre y apellido</p>}
+                            </FormGroup>
 
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    {success && <Alert variant="success">¡Registro exitoso!</Alert>}
+                            {/* Campo de Email */}
+                            <FormGroup className="mb-4">
+                                <Form.Control
+                                    className={errors.email ? "border border-danger" : ""}
+                                    type="email"
+                                    name="email"
+                                    placeholder="Ingresar email"
+                                    onChange={handleChange(setEmail, emailRef)}
+                                    value={email}
+                                    ref={emailRef}
+                                />
+                                {errors.email && <p className="text-danger mt-2">Debe completar el campo email</p>}
+                            </FormGroup>
 
-                    <Form onSubmit={handleSubmit} className="form-gap">
-                        <Form.Group className="mb-2">
-                            <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text" name="nombre" value={formData.nombre} onChange={handleChange} className="input-style" />
-                        </Form.Group>
+                            {/* Campo de Contraseña */}
+                            <FormGroup className="mb-4">
+                                <Form.Control
+                                    className={errors.password ? "border border-danger" : ""}
+                                    type="password"
+                                    name="password"
+                                    placeholder="Ingresar contraseña"
+                                    onChange={handleChange(setPassword, passwordRef)}
+                                    value={password}
+                                    ref={passwordRef}
+                                />
+                                {errors.password && <p className="text-danger mt-2">La contraseña debe tener 8 caracteres, mayúscula y carácter especial.</p>}
+                            </FormGroup>
 
-                        <Form.Group className="mb-2">
-                            <Form.Label>Apellido</Form.Label>
-                            <Form.Control type="text" name="apellido" value={formData.apellido} onChange={handleChange} className="input-style" />
-                        </Form.Group>
+                            {/* Campo de Fecha de Nacimiento */}
+                            <FormGroup className="mb-4">
+                                <Form.Control
+                                    className={errors.birthdate ? "border border-danger" : ""}
+                                    type="date"
+                                    name="birthdate"
+                                    onChange={handleChange(setBirthdate, birthdateRef)}
+                                    value={birthdate}
+                                    ref={birthdateRef}
+                                />
+                                {errors.birthdate && <p className="text-danger mt-2">Debe ingresar su fecha de nacimiento</p>}
+                            </FormGroup>
 
-                        <Form.Group className="mb-2">
-                            <Form.Label>Correo electrónico</Form.Label>
-                            <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} className="input-style" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-2">
-                            <Form.Label>Contraseña</Form.Label>
-                            <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} className="input-style" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-2">
-                            <Form.Label>Fecha de nacimiento</Form.Label>
-                            <Form.Control type="date" name="fechaNacimiento" value={formData.fechaNacimiento} onChange={handleChange} className="input-style" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-4">
-                            <Form.Label>Género</Form.Label>
-                            <Form.Select name="genero" value={formData.genero} onChange={handleChange} className="input-style">
-                                <option value="">Seleccionar</option>
-                                <option value="hombre">Hombre</option>
-                                <option value="mujer">Mujer</option>
-                                <option value="no-decidir">Prefiero no decirlo</option>
-                            </Form.Select>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Check
-                                type="checkbox"
-                                name="terminos"
-                                label="Acepto los terminos y condiciones"
-                                checked={formData.terminos}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
-
-                        <p className="text-center mt-3 text-muted">
-                            ¿Ya tenés cuenta? <Link to="/" className="login-link">Iniciar sesión</Link>
-                        </p>
-                        <Button variant="dark" type="submit" className="w-100 mt-2">
-                            Registrarse
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-        </Container>
+                            {/* Botón de Registro */}
+                            <Row className="mb-3">
+                                <Col className="d-flex justify-content-end">
+                                    <Button variant="dark" type="submit">
+                                        Registrarse
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                        <hr />
+                        <Row className="text-center mt-3">
+                            <Col>
+                                <p className="mb-0 lead">
+                                    ¿Ya tienes una cuenta? <br /> <Link to="/">Iniciar sesión</Link>
+                                </p>
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
     );
 };
 
