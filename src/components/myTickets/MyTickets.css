@@ -1,0 +1,104 @@
+/* Contenedor principal */
+.mytickets-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f7f9fc 0%, #dbe8f5 100%);
+  animation: bgFade 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgFade {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Barra de búsqueda */
+.mytickets-search {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.mytickets-search input {
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+/* Tarjetas de tickets */
+.ticket-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.ticket-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.ticket-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ticket-card .card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.ticket-card .card-text {
+  font-size: 0.95rem;
+  color: #555555;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.ticket-card .btn {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.ticket-card .btn:hover {
+  transform: translateY(-2px);
+  background-color: #0d3b5f;
+}
+
+/* Alertas de tickets */
+.mytickets-alert {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Modal de ticket */
+.modal-body img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.modal-body p {
+  margin-bottom: 0.5rem;
+}
+
+.modal-footer .btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Animaciones de fade-in */
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -3,8 +3,10 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import Register from "./components/register/Register";
-import Billboard from "./components/billboard/Billboard"; // <-- Import Billboard
+import Billboard from "./components/billboard/Billboard";
 import AppNavbar from "./components/navbar/Navbar"; 
+import Contact from "./components/contacts/Contact";
+import MyTickets from "./components/myTickets/MyTickets";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -51,12 +53,24 @@ const App = () => {
             isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/" />
           }
         />
-
+        {/* Contact route */}
+        <Route
+          path="/contact"
+          element={
+            isAuthenticated ? <Contact /> : <Navigate to="/" />
+          }
+        />
         {/* Billboard route */}
         <Route
           path="/billboard"
           element={
             isAuthenticated ? <Billboard /> : <Navigate to="/" />
+          }
+        />
+          <Route
+          path="/mytickets"
+          element={
+            isAuthenticated ? <MyTickets /> : <Navigate to="/" />
           }
         />
 

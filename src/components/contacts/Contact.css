@@ -1,0 +1,29 @@
+.contact-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #124b77 0%, #0a1f33 100%);
+  padding: 2rem;
+  color: #ffffff;
+}
+
+.contact-container h1,
+.contact-container h3 {
+  color: #000000;
+}
+
+.dev-image img {
+  border: 4px solid #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.dev-image img:hover {
+  transform: scale(1.05);
+}
+
+.contact-form {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-form label {
+  font-weight: 600;
+}

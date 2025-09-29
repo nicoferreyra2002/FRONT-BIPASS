@@ -24,10 +24,10 @@ const AppNavbar = ({ onLogout, onLanguageChange }) => {
             <Nav.Link as={NavLink} to="/billboard" className="nav-item-link">
               <FaFilm className="me-2" /> Cartelera
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/etickets" className="nav-item-link">
+            <Nav.Link as={NavLink} to="/mytickets" className="nav-item-link">
               <FaUser className="me-2" /> Mis eTickets
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/contacto" className="nav-item-link">
+            <Nav.Link as={NavLink} to="/contact" className="nav-item-link">
               <FaEnvelope className="me-2" /> Contacto
             </Nav.Link>
           </Nav>
